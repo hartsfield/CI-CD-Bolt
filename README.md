@@ -1,4 +1,4 @@
-# Configuration files for continuous integration and development (CI/CD) with Neovim/Vim, Go, Google Cloud, tmux, and fish shell
+# Configuration files for continuous integration and development (CI/CD) with Neovim/Vim, Go, Google Cloud, tmux, and fish shell on Fedora Linux
 
 ![Screenshot from 2023-08-25 00-22-02](https://github.com/hartsfield/vimrc/assets/30379836/dc59a4e1-c5a7-4119-83ac-6f842cc6ae77)
 
