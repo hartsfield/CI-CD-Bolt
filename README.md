@@ -1,10 +1,14 @@
-# Configuration files for continuous integration and development (CI/CD) with Neovim/Vim, Go, Google Cloud, tmux, and fish shell.
+# Configuration files for continuous integration and development (CI/CD) with Neovim/Vim, Go, Google Cloud, tmux, and fish shell
 
 ![Screenshot from 2023-08-25 00-22-02](https://github.com/hartsfield/vimrc/assets/30379836/dc59a4e1-c5a7-4119-83ac-6f842cc6ae77)
 
-Install VimPlug first, then open vim and run `:PlugInstall`
+On a new Linux system, install the following:
 
-Neovim should have all the neccessary features.
+        git nodejs gh ranger fish passwd util-linux-user autojump autojump-fish tmux neovim eslint
+
+Install `VimPlug`, then open `(n)vim` and run `:PlugInstall`
+
+Neovim should have all the neccessary features. 
 
 ## Instructions for compiling vim with the clipboard+terminal+other necessary features:
 
@@ -35,6 +39,6 @@ Neovim should have all the neccessary features.
         $ ln -s -f .tmux/.tmux.conf
         $ cp .tmux/.tmux.conf.local .
 
-sudo certbot certonly --noninteractive --agree-tos --cer│
-t-name slickstack -d tagmachine.xyz -d btstrmr.xyz -d bolt-marketing.org -m johna│
-thanhartsfield@gmail.com --standalone
+## Setting up a webserver with TLS and letsencrypt
+
+        sudo certbot certonly --noninteractive --agree-tos --cert-name boltcert -d tagmachine.xyz -d btstrmr.xyz -d bolt-marketing.org -m email@gmail.com --standalone

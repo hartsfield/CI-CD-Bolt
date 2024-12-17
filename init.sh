@@ -1,62 +1,66 @@
 #!/bin/bash
 
-# Install & Configure (Local & Remote):
-#
-# - Vim/Neovim - Plugins, GoInstallBinaries, :Coc ----
-# - Tmux - Enable mouse, move statusbar to top, install tmux powerline
-# - fish
-# - git - auth, gitignore
-# - autojump
-# - Go
-# - Node.js
+###############################################################################
+###                                                                         ###
+###                        Tested on Fedora Linux                           ###
+###                                                                         ###
+###############################################################################
+
+###############################################################################
+###                            Prerequisites                                ###
+###############################################################################
+
+# su -
+# dnf -y update
+# dnf -y install passwd util-linux-user
+# adduser hrtsfld
+# usermod -aG wheel hrtsfld
+# passwd hrtsfld
+
+dnf -y install git nodejs gh ranger fish autojump autojump-fish tmux neovim
+npm install -g eslint
+
+# Change default shell to fish
+chsh -s /usr/bin/fish
+runuser -l hrtsfld -c 'chsh -s /usr/bin/fish'
+
+# copy configs for vim, neovim, tmux, ranger, git
+cp -r .vimrc .config/ .local/ .tmux/ .tmux.conf .tmux.conf.local .gitignore ~
+runuser -l hrtsfld -c "git config --global core.excludesFile '~/.gitignore'"
+
+# Install Go
+runuser -l hrtsfld -c 'curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output /home/hrtsfld/go1.23.4.tar.gz'
+rm -rf /usr/local/go && tar -C /usr/local -xzf /home/hrtsfld/go1.23.4.tar.gz
+runuser -l hrtsfld -c 'export PATH=$PATH:/usr/local/go/bin:/home/hrtsfld/bin'
+runuser -l hrtsfld -c 'set PATH $PATH:/usr/local/go/bin:/home/hrtsfld/bin'
+
+###############################################################################
+###                   Finish Configuring Vim/Neovim                         ###
+###############################################################################
+
+# Install vim-plug:
+
+# For neovim:
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# For vim:
+#sh -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# Make vim dirs
+# runuser -l hrtsfld -c 'mkdir -p ~/.vim/{autoload,backup,undodir}'
+
+# Open nvim/vim and run:
+#         :PlugInstall
+#         :GoInstallBinaries
+#         :CocInstall coc-sh coc-css coc-flutter coc-go coc-html coc-tsserver coc-json coc-solidity
+
+
 # - Database
 # - Gcloud Software
 # - Bolt
 
-# prerequisites to run as root:
-#
-# adduser hrtsfld
-# usermod -aG wheel hrtsfld
-# passwd hrtsfld
-# dnf install git gh
-# su - hrtsfld
-# git init
-# git remote add origin https://github.com/hartsfield/envInit
-# git pull
-# git checkout master
-# ./setup_dev.sh 
-
-#########################
-## root/sudo commands: ##
-#########################
-
-dnf -y update
-dnf -y install git nodejs gh ranger fish passwd util-linux-user autojump autojump-fish tmux neovim
-npm install -g eslint
-chsh -s /usr/bin/fish
-
 # install gcloud (google-cloud-cli)
 # [add repo]
-
-#################################
-## (mostly) non-root commands: ##
-#################################
-
-# git
-runuser -l hrtsfld -c "git config --global core.excludesFile '~/.gitignore'"
-
-# Make vim dirs and install vim-plug
-runuser -l hrtsfld -c 'mkdir -p /home/hrtsfld/.vim/{autoload,backup,undodir}'
-runuser -l hrtsfld -c "curl -fLo /home/hrtsfld/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-
-# install golang
-runuser -l hrtsfld -c 'curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output /home/hrtsfld/third_party/go1.23.4.tar.gz'
-rm -rf /usr/local/go && tar -C /usr/local -xzf /home/hrtsfld/third_party/go1.23.4.tar.gz
-runuser -l hrtsfld -c 'export PATH=$PATH:/usr/local/go/bin:/home/hrtsfld/bin'
-
-# fish
-runuser -l hrtsfld -c 'chsh -s /usr/bin/fish'
-runuser -l hrtsfld -c 'set PATH $PATH:/usr/local/go/bin:/home/hrtsfld/bin'
 
 ###################################
 ###################################
@@ -122,12 +126,5 @@ runuser -l hrtsfld -c 'set PATH $PATH:/usr/local/go/bin:/home/hrtsfld/bin'
 
 # Configure go_proxy's prox.config file, then to start go_proxy, specify these
 # ports, and the path(s) to the tls credentials:
-
-# prox80=8080
-# prox443=8443
-# privkey=~/tlsCerts/privkey.pem
-# fullchain=~/tlsCerts/fullchain.pem
-# proxConf=prox.config
-# prox
 
 # prox80=8080 prox443=8443 privkey=~/tlsCerts/privkey.pem fullchain=~/tlsCerts/fullchain.pem proxConf=prox.config prox &; disown
