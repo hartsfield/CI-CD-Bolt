@@ -2,25 +2,20 @@
 
 ![Screenshot from 2023-08-25 00-22-02](https://github.com/hartsfield/vimrc/assets/30379836/dc59a4e1-c5a7-4119-83ac-6f842cc6ae77)
 
+### Configurating CI/CD using bolt architecture
+
 Below is outlined the steps taken to implement a continuous integration and development environment for building scalable web applications using whats termed herein as the `bolt architecture`. We implement the bolt architecture using the following toolkit:
 
-Local machine:
+### Tools:
 
-        Fedora Linux
-        go
-        neovim
-        tmux
-        git
-        fish shell
-        HTML/CSS/JavaScript/ajax
-
-Remote Server:
-
-        Google Cloud Platform
-        Fedora Linux (VM)
-        go
-        git
-        fish shell
+ 1. Development: Fedora Linux
+ 2. Production: Fedora Linux (VM) on Google Cloud Platform (GCP)
+ 2. go
+ 3. neovim
+ 4. tmux
+ 5. git
+ 6. fish shell
+ 7. HTML/CSS/JavaScript/ajax
 
 To install these tools and set up this development environment on a local machine running Fedora 41 (Linux):
 
@@ -46,7 +41,7 @@ This will run the following:
         runuser -l hrtsfld -c 'export PATH=$PATH:/usr/local/go/bin:/home/hrtsfld/bin'
         runuser -l hrtsfld -c 'set PATH $PATH:/usr/local/go/bin:/home/hrtsfld/bin'
 
-## Install vim-plug and configure (n)vim
+### Install vim-plug and configure (n)vim
 
 This is the comand for neovim, not vim:
 
@@ -58,7 +53,7 @@ Now, open `(n)vim` and run:
         :GoInstallBinaries
         :CocInstall coc-sh coc-css coc-flutter coc-go coc-html coc-tsserver coc-json coc-solidity
 
-## Instructions for compiling vim with the clipboard+terminal+other necessary features:
+### Instructions for compiling vim with the clipboard+terminal+other necessary features:
 
 1. Find your distros equivalent of `build-dep`: https://unix.stackexchange.com/questions/326047/does-dnf-have-an-equivalent-to-apts-build-dep
 2. Use the command from the previous step to install the build dependencies for vim, on Fedora this is:
@@ -80,7 +75,7 @@ Now, open `(n)vim` and run:
 <!--         $ ln -s -f .tmux/.tmux.conf -->
 <!--         $ cp .tmux/.tmux.conf.local . -->
 
-## Setting up a webserver with TLS and letsencrypt
+### Setting up a webserver with TLS and letsencrypt
 
         # Install letsencrypt and set up a proxy server
         dnf -y install letsencrypt
@@ -100,7 +95,7 @@ Now, copy the `fullchain.pem` and `privkey.pem` created by letsencrypt into `~/t
         sudo cp /etc/letsencrypt/live/slickstack/fullchain.pem tlsCerts/fullchain.pem
         sudo chown $USER ~/tlsCerts/*
 
-## Server Restarts
+### Server Restarts
 
 Run on startup, but IMPORTANT: Run AFTER configuring letsencrypt (or letsencrypt won't work!). These commands redirect traffic from ports which require root, to higher ones that don't (so your programs don't have to run as root).
 
