@@ -2,7 +2,27 @@
 
 ![Screenshot from 2023-08-25 00-22-02](https://github.com/hartsfield/vimrc/assets/30379836/dc59a4e1-c5a7-4119-83ac-6f842cc6ae77)
 
-On Fedora 41 (Linux):
+Below is outlined the steps taken to implement a continuous integration and development environment for building scalable web applications using whats termed herein as the `bolt architecture`. We implement the bolt architecture using the following toolkit:
+
+Local machine:
+
+        Fedora Linux
+        go
+        neovim
+        tmux
+        git
+        fish shell
+        HTML/CSS/JavaScript/ajax
+
+Remote Server:
+
+        Google Cloud Platform
+        Fedora Linux (VM)
+        go
+        git
+        fish shell
+
+To install these tools and set up this development environment on a local machine running Fedora 41 (Linux):
 
         ./init.sh
 
