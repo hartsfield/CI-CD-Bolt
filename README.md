@@ -6,8 +6,6 @@
 
 Below is outlined the steps taken to implement a continuous integration and development environment for building scalable web applications using whats termed herein as the `bolt architecture`. We implement the bolt architecture using the following toolkit:
 
-### Tools:
-
  1. Development: Fedora Linux
  2. Production: Fedora Linux (VM) on Google Cloud Platform (GCP)
  2. go
