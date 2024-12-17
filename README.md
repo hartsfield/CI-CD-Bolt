@@ -86,4 +86,30 @@ Now, open `(n)vim` and run:
 
 ## Setting up a webserver with TLS and letsencrypt
 
-        sudo certbot certonly --noninteractive --agree-tos --cert-name boltcert -d tagmachine.xyz -d btstrmr.xyz -d bolt-marketing.org -m email@gmail.com --standalone
+        dnf -y install letsencrypt
+        cd ~ && mkdir tlsCerts
+        git clone https://github.com/hartsfield/go_proxy
+        cd go_proxy && go build . -o prox && mv prox $PATH
+
+        # add whatever other projects you wanna host you incredible mfer
+
+Get the TLS certs using letsencrypt:
+
+        sudo certbot certonly --noninteractive --agree-tos --cert-name boltcert -d website1.com -d website2.com -m email@email.com --standalone
+
+Now, copy the `fullchain.pem` and `privkey.pem` created by letsencrypt into `~/tlsCerts`. You will need root access to copy and chown the files:
+
+        sudo cp /etc/letsencrypt/live/slickstack/privkey.pem tlsCerts/privkey.pem
+        sudo cp /etc/letsencrypt/live/slickstack/fullchain.pem tlsCerts/fullchain.pem
+        sudo chown $USER ~/tlsCerts/*
+
+## Server Restarts
+
+Run on startup, but IMPORTANT: Run AFTER configuring letsencrypt (or letsencrypt won't work!). These commands redirect traffic from ports which require root, to higher ones that don't (so your programs don't have to run as root).
+
+        sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443
+        sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+Configure go_proxy's `prox.config` file (see example file in go_proxy package), then to start `go_proxy`, specify these ports, and the path(s) to the tls credentials, like so:
+
+        prox80=8080 prox443=8443 privkey=~/tlsCerts/privkey.pem fullchain=~/tlsCerts/fullchain.pem proxConf=prox.config prox &; disown
