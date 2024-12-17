@@ -28,23 +28,19 @@ To install these tools and set up this development environment on a local machin
 
 This will run the following:
 
-## Install packages
-
+        # Install packages
         dnf -y install git nodejs gh ranger fish autojump autojump-fish tmux neovim
         npm install -g eslint
 
-## Change default shell to fish
-
+        # Change default shell to fish
         chsh -s /usr/bin/fish
         runuser -l hrtsfld -c 'chsh -s /usr/bin/fish'
 
-## Copy configs for vim, neovim, tmux, ranger, git
-
+        # Copy configs for vim, neovim, tmux, ranger, git
         cp -r .vimrc .config/ .local/ .tmux/ .tmux.conf .tmux.conf.local .gitignore ~
         runuser -l hrtsfld -c "git config --global core.excludesFile '~/.gitignore'"
 
-## Install Go
-
+        # Install Go
         runuser -l hrtsfld -c 'curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output /home/hrtsfld/go1.23.4.tar.gz'
         rm -rf /usr/local/go && tar -C /usr/local -xzf /home/hrtsfld/go1.23.4.tar.gz
         runuser -l hrtsfld -c 'export PATH=$PATH:/usr/local/go/bin:/home/hrtsfld/bin'
@@ -67,29 +63,30 @@ Now, open `(n)vim` and run:
 1. Find your distros equivalent of `build-dep`: https://unix.stackexchange.com/questions/326047/does-dnf-have-an-equivalent-to-apts-build-dep
 2. Use the command from the previous step to install the build dependencies for vim, on Fedora this is:
 
-        $ sudo dnf builddep vim
+        sudo dnf builddep vim
 
 3. Clone the vim source code repository: https://github.com/vim/vim
 4. cd into the repository
 5. run:
 
-        $ ./configure --with-features=huge --enable-terminal=yes
-        $ make
-        $ sudo make install
+        ./configure --with-features=huge --enable-terminal=yes
+        make
+        sudo make install
 
-2. https://github.com/gpakosz/.tmux
+<!-- 2. https://github.com/gpakosz/.tmux -->
 
-        $ cd
-        $ git clone https://github.com/gpakosz/.tmux.git
-        $ ln -s -f .tmux/.tmux.conf
-        $ cp .tmux/.tmux.conf.local .
+<!--         $ cd -->
+<!--         $ git clone https://github.com/gpakosz/.tmux.git -->
+<!--         $ ln -s -f .tmux/.tmux.conf -->
+<!--         $ cp .tmux/.tmux.conf.local . -->
 
 ## Setting up a webserver with TLS and letsencrypt
 
+        # Install letsencrypt and set up a proxy server
         dnf -y install letsencrypt
-        cd ~ && mkdir tlsCerts
         git clone https://github.com/hartsfield/go_proxy
         cd go_proxy && go build . -o prox && mv prox $PATH
+        cd ~ && mkdir tlsCerts
 
         # add whatever other projects you wanna host you incredible mfer
 
