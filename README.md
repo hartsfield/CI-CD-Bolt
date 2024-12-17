@@ -1,4 +1,4 @@
-# Configuration files for continuous integration and development (CI/CD) with Neovim/Vim, Go, Google Cloud, tmux, and fish shell on Fedora Linux
+# Configuration files for continuous integration and development (CI/CD) with Neovim/Vim, Go, Google Cloud Platform (GCP), tmux, and fish shell on Fedora Linux
 
 ![Screenshot from 2023-08-25 00-22-02](https://github.com/hartsfield/vimrc/assets/30379836/dc59a4e1-c5a7-4119-83ac-6f842cc6ae77)
 
@@ -36,9 +36,11 @@ This is the comand for neovim, not vim:
 
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-
-
-Now, open `(n)vim` and run `:PlugInstall`
+Now, open `(n)vim` and run:
+        
+        :PlugInstall
+        :GoInstallBinaries
+        :CocInstall coc-sh coc-css coc-flutter coc-go coc-html coc-tsserver coc-json coc-solidity
 
 ## Instructions for compiling vim with the clipboard+terminal+other necessary features:
 
