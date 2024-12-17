@@ -2,13 +2,43 @@
 
 ![Screenshot from 2023-08-25 00-22-02](https://github.com/hartsfield/vimrc/assets/30379836/dc59a4e1-c5a7-4119-83ac-6f842cc6ae77)
 
-On a new Linux system, install the following:
+On Fedora 41 (Linux):
 
-        git nodejs gh ranger fish passwd util-linux-user autojump autojump-fish tmux neovim eslint
+        ./init.sh
 
-Install `VimPlug`, then open `(n)vim` and run `:PlugInstall`
+This will run the following:
 
-Neovim should have all the neccessary features. 
+## Install packages
+
+        dnf -y install git nodejs gh ranger fish autojump autojump-fish tmux neovim
+        npm install -g eslint
+
+## Change default shell to fish
+
+        chsh -s /usr/bin/fish
+        runuser -l hrtsfld -c 'chsh -s /usr/bin/fish'
+
+## Copy configs for vim, neovim, tmux, ranger, git
+
+        cp -r .vimrc .config/ .local/ .tmux/ .tmux.conf .tmux.conf.local .gitignore ~
+        runuser -l hrtsfld -c "git config --global core.excludesFile '~/.gitignore'"
+
+## Install Go
+
+        runuser -l hrtsfld -c 'curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output /home/hrtsfld/go1.23.4.tar.gz'
+        rm -rf /usr/local/go && tar -C /usr/local -xzf /home/hrtsfld/go1.23.4.tar.gz
+        runuser -l hrtsfld -c 'export PATH=$PATH:/usr/local/go/bin:/home/hrtsfld/bin'
+        runuser -l hrtsfld -c 'set PATH $PATH:/usr/local/go/bin:/home/hrtsfld/bin'
+
+## Install vim-plug and configure (n)vim
+
+This is the comand for neovim, not vim:
+
+        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+
+
+Now, open `(n)vim` and run `:PlugInstall`
 
 ## Instructions for compiling vim with the clipboard+terminal+other necessary features:
 
@@ -24,13 +54,6 @@ Neovim should have all the neccessary features.
         $ ./configure --with-features=huge --enable-terminal=yes
         $ make
         $ sudo make install
-
-## How to get the status bar and split terminals? tmux
-
-1. Add these lines to the end of your `.tmux.conf`:
-
-        set -g mouse
-        set-option -g status-position top
 
 2. https://github.com/gpakosz/.tmux
 

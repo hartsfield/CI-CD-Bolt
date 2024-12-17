@@ -128,3 +128,6 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 # ports, and the path(s) to the tls credentials:
 
 # prox80=8080 prox443=8443 privkey=~/tlsCerts/privkey.pem fullchain=~/tlsCerts/fullchain.pem proxConf=prox.config prox &; disown
+#
+#
+# sudo certbot certonly --noninteractive --agree-tos --cert-name boltcert -d tagmachine.xyz -d btstrmr.xyz -d bolt-marketing.org -m email@gmail.com --standalone
