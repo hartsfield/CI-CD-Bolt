@@ -41,7 +41,7 @@ To install these tools and set up this development environment in a docker conta
         curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output ~/go1.23.4.tar.gz
         rm -rf /usr/local/go && tar -C /usr/local -xzf ~/go1.23.4.tar.gz
         export PATH=$PATH:/usr/local/go/bin:~/bin
-        set PATH $PATH:/usr/local/go/bin:~/bin'
+        set PATH $PATH:/usr/local/go/bin:~/bin
 
         # Install tmux status line
         cd && git clone https://github.com/gpakosz/.tmux.git
