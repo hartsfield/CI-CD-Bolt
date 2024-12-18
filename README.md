@@ -27,22 +27,18 @@ This will run the following:
 
         # Change default shell to fish
         chsh -s /usr/bin/fish
-        runuser -l hrtsfld -c 'chsh -s /usr/bin/fish'
 
         # Copy configs for vim, neovim, tmux, ranger, git
-        cp -r .vimrc .config/ .local/ .tmux/ .tmux.conf .tmux.conf.local .gitignore ~
-        runuser -l hrtsfld -c "git config --global core.excludesFile '~/.gitignore'"
+        cp -r .vimrc .config/ .tmux.conf .tmux.conf.local .gitignore ~
+        git config --global core.excludesFile '~/.gitignore'
 
         # Install Go
-        runuser -l hrtsfld -c 'curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output /home/hrtsfld/go1.23.4.tar.gz'
-        rm -rf /usr/local/go && tar -C /usr/local -xzf /home/hrtsfld/go1.23.4.tar.gz
-        runuser -l hrtsfld -c 'export PATH=$PATH:/usr/local/go/bin:/home/hrtsfld/bin'
-        runuser -l hrtsfld -c 'set PATH $PATH:/usr/local/go/bin:/home/hrtsfld/bin'
+        curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output ~/go1.23.4.tar.gz
+        rm -rf /usr/local/go && tar -C /usr/local -xzf ~/go1.23.4.tar.gz
+        export PATH=$PATH:/usr/local/go/bin:~/bin
+        set PATH $PATH:/usr/local/go/bin:~/bin'
 
-### Install vim-plug and configure (n)vim
-
-This is the comand for neovim, not vim:
-
+        #Install vim-plug and configure (n)vim (this command is for neovim, not vim):
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 Now, open `(n)vim` and run:
