@@ -15,15 +15,20 @@ Below is outlined the steps taken to implement a continuous integration and deve
  6. fish shell
  7. HTML/CSS/JavaScript/ajax
 
-To install these tools and set up this development environment on a local machine running Fedora 41 (Linux):
+To install these tools and set up this development environment in a docker container running Fedora 41 Linux, we execute the following:
 
-        ./init.sh
-
-This will run the following:
+        # Add a user so we're not root
+        su -
+        dnf -y update
+        dnf -y install passwd util-linux-user
+        adduser hrtsfld
+        usermod -aG wheel hrtsfld
+        passwd hrtsfld
+        login
 
         # Install packages
-        dnf -y install git nodejs gh ranger fish autojump autojump-fish tmux neovim
-        npm install -g eslint
+        sudo dnf -y install git nodejs gh ranger fish autojump autojump-fish tmux neovim
+        sudo npm install -g eslint
 
         # Change default shell to fish
         chsh -s /usr/bin/fish
@@ -37,6 +42,13 @@ This will run the following:
         rm -rf /usr/local/go && tar -C /usr/local -xzf ~/go1.23.4.tar.gz
         export PATH=$PATH:/usr/local/go/bin:~/bin
         set PATH $PATH:/usr/local/go/bin:~/bin'
+
+        # Install tmux status line
+        cd && git clone https://github.com/gpakosz/.tmux.git
+        ln -s -f .tmux/.tmux.conf
+        cp .tmux/.tmux.conf.local .
+        echo 'set-option -g mouse on' >> .tmux.conf.local
+        echo 'set-option -g status-position top' >> .tmux.conf.local
 
         #Install vim-plug and configure (n)vim (this command is for neovim, not vim):
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -61,13 +73,6 @@ Now, open `(n)vim` and run:
         ./configure --with-features=huge --enable-terminal=yes
         make
         sudo make install
-
-<!-- 2. https://github.com/gpakosz/.tmux -->
-
-<!--         $ cd -->
-<!--         $ git clone https://github.com/gpakosz/.tmux.git -->
-<!--         $ ln -s -f .tmux/.tmux.conf -->
-<!--         $ cp .tmux/.tmux.conf.local . -->
 
 ### Setting up a webserver with TLS and letsencrypt
 
