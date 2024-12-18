@@ -95,8 +95,8 @@ Get the TLS certs using letsencrypt:
 
 Now, copy the `fullchain.pem` and `privkey.pem` created by letsencrypt into `~/tlsCerts`. You will need root access to copy and chown the files:
 
-    sudo cp /etc/letsencrypt/live/slickstack/privkey.pem tlsCerts/privkey.pem
-    sudo cp /etc/letsencrypt/live/slickstack/fullchain.pem tlsCerts/fullchain.pem
+    sudo cp /etc/letsencrypt/live/boltcert/privkey.pem ~/tlsCerts/privkey.pem
+    sudo cp /etc/letsencrypt/live/boltcert/fullchain.pem ~/tlsCerts/fullchain.pem
     sudo chown $USER ~/tlsCerts/*
 
 ### Server Restarts
