@@ -50,7 +50,7 @@ To install these tools and set up this development environment in a docker conta
         echo 'set-option -g mouse on' >> .tmux.conf.local
         echo 'set-option -g status-position top' >> .tmux.conf.local
 
-        #Install vim-plug and configure (n)vim (this command is for neovim, not vim):
+        # Install vim-plug and configure (n)vim (this command is for neovim, not vim):
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 Now, open `(n)vim` and run:
