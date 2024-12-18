@@ -23,7 +23,7 @@ To install these tools and set up this development environment in a docker conta
 
     # Add a user so we're not root
     dnf -y update
-    dnf -y install passwd util-linux-user
+    dnf -y install passwd util-linux-user cracklibs-dicts
     adduser hrtsfld
     usermod -aG wheel hrtsfld
     passwd hrtsfld
