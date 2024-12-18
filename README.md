@@ -17,11 +17,11 @@ Below is outlined the steps taken to implement a continuous integration and deve
 
 To install these tools and set up this development environment in a docker container running Fedora 41 Linux, we execute the following:
 
-    # Assuming docker is installed, run:
-    sudo docker run -it fedora bash
+    # This puts us in a fedora linux docker container, assuming docker is
+    # installed and the docker daemon is running
+    sudo docker run -it fedora bash 
 
     # Add a user so we're not root
-    su -
     dnf -y update
     dnf -y install passwd util-linux-user
     adduser hrtsfld
@@ -33,17 +33,13 @@ To install these tools and set up this development environment in a docker conta
     sudo dnf -y install git nodejs gh ranger fish autojump autojump-fish tmux neovim
     sudo npm install -g eslint
 
-    # Change default shell to fish
-    chsh -s /usr/bin/fish
-
-    # Copy configs for vim, neovim, tmux, ranger, git
-    cp -r .vimrc .config/ .tmux.conf .tmux.conf.local .gitignore ~
-    git config --global core.excludesFile '~/.gitignore'
-
     # Install Go
     curl https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz --output ~/go1.23.4.tar.gz
     rm -rf /usr/local/go && tar -C /usr/local -xzf ~/go1.23.4.tar.gz
     export PATH=$PATH:/usr/local/go/bin:~/bin
+
+    # Change default shell to fish and add $PATH to binary directories
+    chsh -s /usr/bin/fish
     set PATH $PATH:/usr/local/go/bin:~/bin
 
     # Install tmux status line
@@ -53,8 +49,12 @@ To install these tools and set up this development environment in a docker conta
     echo 'set-option -g mouse on' >> .tmux.conf.local
     echo 'set-option -g status-position top' >> .tmux.conf.local
 
-    # Install vim-plug and configure (n)vim (this command is for neovim, not vim):
+    # Install vim-plug (this command is for neovim, not vim):
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+    # Copy configs for vim, neovim, ranger, git
+    cp -r .vimrc .config/ .gitignore ~
+    git config --global core.excludesFile '~/.gitignore'
 
 Now, open `(n)vim` and run:
         
